@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class Maths2{
     double num = 0.0;
     public static void main(String[] args){
