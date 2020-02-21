@@ -8,8 +8,10 @@ public class Maths2{
     public double getSqr(double num1) {
         if(num1 == 0)
             return 0;
-        else
+        else{
             return getSqr(num1-1) + (2* num1) -1;
+        }
+            
     }
     public double getCube(double num2) {
         if(num2 == 0)
