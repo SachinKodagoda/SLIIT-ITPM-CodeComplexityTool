@@ -265,27 +265,11 @@ body{
     display: table;
 }
 
-.fileSubmitForm {
-    width: 100%;
-    height: auto;
-    background: #F5F5F5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
-.fileSubmitForm_item {
-    margin: .5rem 0;
-}
-
-.fileSubmitForm_item-btn {
-    width: 20rem;
-}
 
 /* ------------Table Decoration---------- */
 .customTableCover{
-    height: 70vh;
+    height: 75vh;
     overflow: auto;
     margin: 0 auto;
     width: 90%;
@@ -297,56 +281,57 @@ body{
     cursor: pointer;
 }
 
-#customTable {
+.customTable {
     border-collapse: collapse;
     width: 100%;
     border: none;
 
 }
 
-#customTable td
+.customTable td
 {
     border: 2px solid #ddd;
-    padding: 8px;
+    padding: 4px;
 }
 
-#customTable tr:nth-child(even) {
+.customTable tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-#customTable tr:hover {
+.customTable tr:hover {
     background-color: #ddd;
 }
 
-#customTable th {
+.customTable th {
     border-right: 2px solid #063900;
     border-bottom: 2px solid #063900;
     padding: 8px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     text-align: left;
     background-color: #088C00;
     color: white;
 }
 
-.selectionITemCover{
+.selectionItemCover{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.selectionITem{
+.selectionItem{
     color: #fff;
     background-color: #088C00;
-    padding: .5rem 1rem;
     border-radius: 50rem;
-    margin: 1rem;
+    margin: 1rem .5rem;
     border: .1rem solid #333;
-    width: 200px;
+    width: 180px;
+    padding: .5rem 0;
     text-align: center;
+    cursor: pointer;
 }
 
-.selectionITemSize{
+.selectionItem.active{
     background: #000;
 }
 
@@ -373,4 +358,183 @@ body{
 
 .customTable1DataCount{
     font-weight: 900;
+}
+
+
+.customTableInnerCover{
+    display: none;
+    width: 100%;
+}
+
+.rotatedWord{
+    transform: rotate(-45deg);
+    display: inline-block;
+    font-size: 14px;
+}
+
+.selector{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    cursor: pointer;
+    
+}
+
+.selector img{
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: auto;
+}
+
+
+.commonModal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 1;
+}
+
+
+.uploadModal{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: auto;
+    width: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 2;
+    display: none;
+    background: #F5F5F5;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.uploadModalBack{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(0,0,0,0.9);
+    cursor: pointer;
+    display: none;
+}
+
+
+.fileSubmitForm{
+    background: #F5F5F5;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 50vh;
+    width: 50vh;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.fileSubmitForm_item {
+    margin: .5rem 0;
+}
+
+.fileSubmitForm_item-btn {
+    width: 20rem;
+}
+
+.topSettingBar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.setWeight{
+    background: #73B51A;
+    width: 20%;
+    padding: .5rem 0;
+    color: #fff;
+    text-align: center;
+    border-radius: 5rem;
+    margin: .5rem 2rem;
+    cursor: pointer;
+    background-image: linear-gradient(45deg, #73B51A 0%, #1D5430 100%);
+    border: 1px solid #000;
+
+}
+
+
+.programComplexity{
+    display: block;
+    font-weight: 600;
+    display: none;
+}
+
+.programComplexitySpan{
+    border: 1px solid #333;
+    display: inline-block;
+    padding: .5rem 2rem;
+    margin: 1rem;
+    border-radius: 10px;
+}
+
+.modalTableSave{
+    background: #73B51A;
+    border: 1px solid #000;
+    margin: .5rem auto;
+    width: 50%;
+    text-align: center;
+    padding: .5rem 0;
+    border-radius: 50px;
+    color: #fff;
+}
+
+
+.modalTable {
+    border-collapse: collapse;
+    width: 100%;
+    border: none;
+
+}
+
+.modalTable td, th
+{
+    border: 2px solid #000;
+    padding: 6px;
+}
+
+.modalTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.modalTable th {
+    border-right: 2px solid #063900;
+    border-bottom: 2px solid #063900;
+    padding: 6px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    background-color: #088C00;
+    color: white;
+}
+
+.modalTableTopic{
+    text-align: center;
+    padding: .5rem 0;
+    font-weight: 900;
+}
+
+#fileSelectedOption{
+    width: 200px;
+    margin: 0 2rem;
+
+}
+#fileSelectedOption option{
+    text-align: center;
+    border: 2px solid #000;
+    
 }

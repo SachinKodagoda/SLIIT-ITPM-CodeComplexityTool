@@ -18,6 +18,7 @@ function codeColorize(x, lang) {
     var javanumbercolor = "#d73a49";
     var javapropertycolor = "#000";
     var javaidentifiers = "yellow";
+    var javaOperators = "#BF4EFF";
     // #005cc5
 
     if (!lang) { lang = "java"; }
@@ -84,10 +85,11 @@ function codeColorize(x, lang) {
             numpos = getNumPos(rest, javaNumberMode);
             keywordpos = getKeywordPos("java", rest, javaKeywordMode);
             // identifiers = getIdentifierPos("java", rest, javaIdentifierMode);
+            // operatorsFound = getOperatorsPos("java", rest, javaOperatorMode);
             
 
             dotpos = getDotPos(rest, javaPropertyMode);
-            if (Math.max(numpos[0], sfnuttpos[0], dfnuttpos[0], compos[0], comlinepos[0], keywordpos[0], dotpos[0]) == -1) { break; }
+            if (Math.max(numpos[0], sfnuttpos[0], dfnuttpos[0], compos[0], comlinepos[0], keywordpos[0], dotpos[0] ) == -1) { break; }
             mypos = getMinPos(numpos, sfnuttpos, dfnuttpos, compos, comlinepos, keywordpos, dotpos);
             if (mypos[0] == -1) { break; }
             if (mypos[0] > -1) {
@@ -100,43 +102,46 @@ function codeColorize(x, lang) {
         for (i = 0; i < esc.length; i++) {
             rest = rest.replace("W3JSESCAPE", esc[i]);
         }
-        return "<span style=color:" + javacolor + ">" + rest + "</span>";
+        return "<span style=\"color:" + javacolor + "\">" + rest + "</span>";
     }
     function javaStringMode(txt) {
-        return "<span style=color:" + javastringcolor + ">" + txt + "</span>";
+        return "<span style=\"color:" + javastringcolor + "\">" + txt + "</span>";
     }
     function javaKeywordMode(txt) {
-        return "<span style=color:" + javakeywordcolor + ">" + txt + "</span>";
+        return "<span style=\"color:" + javakeywordcolor + "\">" + txt + "</span>";
     }
 
     function javaIdentifierMode(txt) {
-        return "<span style=color:" + javaidentifiers + ">" + txt + "</span>";
+        return "<span style=\"color:" + javaidentifiers + "\">" + txt + "</span>";
     }
 
     function javaNumberMode(txt) {
-        return "<span style=color:" + javanumbercolor + ">" + txt + "</span>";
+        return "<span style=\"color:" + javanumbercolor + "\">" + txt + "</span>";
     }
     function javaPropertyMode(txt) {
-        return "<span style=color:" + javapropertycolor + ">" + txt + "</span>";
+        return "<span style=\"color:" + javapropertycolor + "\">" + txt + "</span>";
     }
 
-
-
+    function javaOperatorMode(txt) {
+        return "<span style=\"color:" + javaOperators + ";font-weight:900;\" >" + txt + "</span>";
+    }
 
     function getKeywordPos(typ, txt, func) {
         var words, i, pos, rpos = -1, rpos2 = -1, patt;
         if (typ == "java") {
             words = [
-                "true", "false", "NaN", "null", "void", "enum",
-                "import", "export", "function", "class", "new", "this", "return", "super",
-                "try", "catch", "finally", "throw", "throws",
-                "public", "private", "protected", "default", //Access Modifiers
-                "final", "abstract", "transient", "synchronized", "native", "strictfp", "volatile", "static", //NonAccess Modifiers
+                "true","false", "NaN","null","void","enum",
+                "import", "export", "function" , "class", "new" , "this", "return", "super",
+                "try" , "catch", "finally", "throw","throws",
+                "public","private","protected", "default", //Access Modifiers
+                "final", "abstract", "transient","synchronized","native", "strictfp", "volatile","static", //NonAccess Modifiers
                 "const", "var", "let",
-                "break", "continue", "goto", "else",
-                "instanceof", "typeof",
-                "implements", "extends", "interface",
-                // "debugger", "delete", "eval", "event", "in", "with", "yield", "package", "arguments",
+                "break","continue",  "goto",
+                "else", 
+                "instanceof","typeof",
+                "implements","extends", "interface",
+                "delete","package","arguments","yield","event","debugger"
+                // "eval","in", "with"
             ];
         }
         for (i = 0; i < words.length; i++) {
@@ -184,6 +189,28 @@ function codeColorize(x, lang) {
 
                 }
                 
+            }
+        }
+        return [rpos, rpos2, func];
+    }
+
+    function getOperatorsPos(typ, txt, func){
+        var words, i, pos, rpos = -1, rpos2 = -1, patt;
+        if (typ == "java") {
+            words = ["\="];
+        }
+        for (i = 0; i < words.length; i++) {
+            pos = txt.toLowerCase().indexOf(words[i]);
+            if (pos > -1) {
+
+                patt = /\W/g;
+                if (txt.substr(pos + words[i].length, 1).match(patt) && txt.substr(pos - 1, 1).match(patt)) {
+                    if (pos > -1 && (rpos == -1 || pos < rpos)) {
+                        rpos = pos;
+                        rpos2 = rpos + words[i].length; 
+                    }
+
+                }
             }
         }
         return [rpos, rpos2, func];

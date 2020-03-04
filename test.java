@@ -33,7 +33,7 @@ public class Maths2{
     double n2 = m1.getSqr(num);
     // Ex4: answer() method calling the getSqr() method, is an example for a regular method calling a recursive method in the same file.
 
-    System.out.println("Squared value of " + num + " is "+ n2);
+    System.out.println("Squared value of " + num + " is "+ n2+"");
     System.out.println("Cube value of " + num + " is " + m1.getCube(num));  
     }
 }
