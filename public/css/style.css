@@ -320,9 +320,6 @@ body{
 .customTable th {
     border-right: 2px solid #063900;
     border-bottom: 2px solid #063900;
-    padding: 8px;
-    padding-top: 6px;
-    padding-bottom: 6px;
     background-color: #088C00;
     color: white;
 }
@@ -463,6 +460,52 @@ body{
     border-right: 2px solid #000 !important;
 }
 
+.modalTableSave{
+    background: #73B51A;
+    border: 1px solid #000;
+    margin: .5rem auto;
+    width: 50%;
+    text-align: center;
+    padding: .5rem 0;
+    border-radius: 50px;
+    color: #fff;
+}
+
+
+.modalTable {
+    border-collapse: collapse;
+    width: 100%;
+    border: none;
+
+}
+
+.modalTable td, th
+{
+    border: 2px solid #000;
+    padding: 8px;
+}
+
+.modalTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.modalTable th {
+    border-right: 2px solid #063900;
+    border-bottom: 2px solid #063900;
+    padding: 6px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    background-color: #088C00;
+    color: white;
+}
+
+.modalTableTopic{
+    text-align: center;
+    padding: .5rem 0;
+    font-weight: 900;
+}
+
 .finalRowBorder{
    border-bottom: 3px solid #000 !important;
 }
@@ -587,51 +630,7 @@ body{
     border-radius: 10px;
 }
 
-.modalTableSave{
-    background: #73B51A;
-    border: 1px solid #000;
-    margin: .5rem auto;
-    width: 50%;
-    text-align: center;
-    padding: .5rem 0;
-    border-radius: 50px;
-    color: #fff;
-}
 
-
-.modalTable {
-    border-collapse: collapse;
-    width: 100%;
-    border: none;
-
-}
-
-.modalTable td, th
-{
-    border: 2px solid #000;
-    padding: 6px;
-}
-
-.modalTable tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.modalTable th {
-    border-right: 2px solid #063900;
-    border-bottom: 2px solid #063900;
-    padding: 6px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: left;
-    background-color: #088C00;
-    color: white;
-}
-
-.modalTableTopic{
-    text-align: center;
-    padding: .5rem 0;
-    font-weight: 900;
-}
 
 #fileSelectedOption{
     width: 200px;
@@ -650,3 +649,45 @@ body{
     width: 100%;
     text-align: center;
 }
+
+
+.tooltip {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: #000;
+    color: #fff;
+    min-width: 300px;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 10;
+    top: 80%;
+    left: 0;
+    transform: translate(-100%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    word-break: none;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    border-width: 6px;
+    border-style: solid;
+    transform: translate(100%, -50%);
+    border-color: transparent transparent transparent #000 ;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }

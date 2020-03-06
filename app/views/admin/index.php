@@ -445,7 +445,16 @@
         ?>
 
         var table_1 = document.getElementById('table_1_inner');
-        var table_1_headerArray = ["Line no", "Program Statements", "Nkw", "Nid", "Nop", "Nnv", "Nsl", "Cs"];
+        var table_1_headerArray = [
+            "Line no ",
+            "Program Statements",
+            "<div class='tooltip'>Nkw <span class='tooltiptext'>Number of Keywords</span></div>",
+            "<div class='tooltip'>Nid <span class='tooltiptext'>Number of Identifiers</span></div>",
+            "<div class='tooltip'>Nop <span class='tooltiptext'>Number of Operators</span></div>",
+            "<div class='tooltip'>Nnv <span class='tooltiptext'>Number of Numerical Values</span></div>",
+            "<div class='tooltip'>Nsl <span class='tooltiptext'>Number of String Literals</span></div>",
+            "<div class='tooltip'>Cs  <span class='tooltiptext'>Complexity of Size</span></div>"
+        ];
         var table_1_bodyArray = ["LineNo", "Code", "Nkw", "Nid", "Nop", "Nnv", "Nsl", "Cs"];
         var table_1_weight = ["", "", 1, 1, 1, 1, 1, ""];
 
@@ -454,9 +463,18 @@
         }
 
         var table_2 = document.getElementById('table_2_inner');
-        var table_2_headerArray = ["Line no", "Program Statements", "Wvs", "Npdtv", "Ncdtv", "Cv"];
-        var table_2_bodyArray = ["LineNo", "Code", "Wvs", "Npdtv", "Ncdtv", "Cv"];
-        var table_2_weight = ["", "", 1, 1, 1, ""];
+        var table_2_headerArray = [
+            "Line no",
+            "Program Statements",
+            "<div class='tooltip'>Ngv<span class='tooltiptext'>Number of Global Variables</span></div>",
+            "<div class='tooltip'>Nlv<span class='tooltiptext'>Number of Local Variables</span></div>",
+            "<div class='tooltip'>Npdtv<span class='tooltiptext'>Number of Primitive Data type Variables</span></div>",
+            "<div class='tooltip'>Ncdtv<span class='tooltiptext'>Number of Composite Data type Variables</span></div>",
+            "<div class='tooltip'>Cv<span class='tooltiptext'>Complexity of Variables</span></div>"
+        ];
+
+        var table_2_bodyArray = ["LineNo", "Code", "Ngv", "Nlv", "Npdtv", "Ncdtv", "Cv"];
+        var table_2_weight = ["", "", 1, 1, 1, 1, ""];
 
         if (sessionStorage.getItem("table_2_weight")) {
             // table_2_weight = JSON.parse(sessionStorage.getItem("table_2_weight"));
@@ -472,7 +490,24 @@
         }
 
         var table_4 = document.getElementById('table_4_inner');
-        var table_4_headerArray = ["Line no", "Program Statements", "Nr", "Nmcms", "Nmcmd", "Nmcrms", "Nmcrmd", "Nrmcrms", "Nrmcrmd", "Nrmcms", "Nrmcmd", "Nmrgvs", "Nmrgvd", "Nrmrgvs", "Nrmrgvd", "Ccp"];
+        var table_4_headerArray = [
+            "Line no",
+            "Program Statements",
+            "<span class='rotatedWord'>Nr</span>",
+            "<span class='rotatedWord'>Nmcms</span>",
+            "<span class='rotatedWord'>Nmcmd</span>",
+            "<span class='rotatedWord'>Nmcrms</span>",
+            "<span class='rotatedWord'>Nmcrmd</span>",
+            "<span class='rotatedWord'>Nrmcrms</span>",
+            "<span class='rotatedWord'>Nrmcrmd</span>",
+            "<span class='rotatedWord'>Nrmcms</span>",
+            "<span class='rotatedWord'>Nrmcmd</span>",
+            "<span class='rotatedWord'>Nmrgvs</span>",
+            "<span class='rotatedWord'>Nmrgvd</span>",
+            "<span class='rotatedWord'>Nrmrgvs</span>",
+            "<span class='rotatedWord'>Nrmrgvd</span>",
+            "<span class='rotatedWord'>Ccp</span>"
+        ];
         var table_4_bodyArray = ["LineNo", "Code", "Nr", "Nmcms", "Nmcmd", "Nmcrms", "Nmcrmd", "Nrmcrms", "Nrmcrmd", "Nrmcms", "Nrmcmd", "Nmrgvs", "Nmrgvd", "Nrmrgvs", "Nrmrgvd", "Ccp"];
         var table_4_weight = ["", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ""];
 
@@ -655,19 +690,12 @@
                     break;
 
             }
-            console.log(table_1_weight);
-            console.log(table_2_weight);
-            console.log(table_3_weight);
-            createAllTables()
+            createAllTables();
             hideModal();
             sessionStorage.setItem("table_1_weight", JSON.stringify(table_1_weight));
             sessionStorage.setItem("table_2_weight", JSON.stringify(table_2_weight));
             sessionStorage.setItem("table_3_weight", JSON.stringify(table_3_weight));
-        }
-
-        console.log(table_1_weight);
-        console.log(table_2_weight);
-        console.log(table_3_weight);
+        };
 
         createAllTables();
         setWeightItems();
