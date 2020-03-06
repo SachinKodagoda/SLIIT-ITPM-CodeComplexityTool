@@ -249,8 +249,3 @@ function codeColorize(x, lang) {
     }
 }
 
-
-
-$(function () {
-    codeColor();
-});

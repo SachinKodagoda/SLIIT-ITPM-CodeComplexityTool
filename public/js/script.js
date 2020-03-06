@@ -69,5 +69,16 @@ function hideModal() {
         modalItems[i].style.display = "none";
     }
     document.getElementById("uploadModalBack").style.display = "none";
-    document.getElementById("commonModal").style.display = "none";    
+    document.getElementById("commonModal").style.display = "none"; 
+}
+reCalculate();
+
+
+function reCalculate(){
+    var keyword_value = document.getElementById("1_keyword_value").innerText;
+    var identifier_value = document.getElementById("1_identifier_value").innerText;
+    var operator_value = document.getElementById("1_operator_value").innerText;
+    var numerical_value = document.getElementById("1_numerical_value").innerText;
+    var string_value = document.getElementById("1_string_value").innerText;
+    table = document.getElementById("table_1_inner");
 }

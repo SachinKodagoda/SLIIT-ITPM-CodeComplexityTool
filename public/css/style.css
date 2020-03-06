@@ -256,7 +256,19 @@
 
 body{
     height: 100vh;
+    background-image: linear-gradient(132deg, #F4D03F 0%, #16A085 100%);
+    padding: 1.2rem;
+
+}
+
+.overallCover{
+    background: rgba(255,255,255,0.5);
+    border-radius: 10px;
+    padding: .5rem 1rem;
+    height: 100%;
+    width: 100%;
     overflow: auto;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);
 }
 
 .clearfix::after {
@@ -265,20 +277,19 @@ body{
     display: table;
 }
 
-
-
 /* ------------Table Decoration---------- */
 .customTableCover{
-    height: 75vh;
+    height: calc(100% - 190px);
     overflow: auto;
     margin: 0 auto;
-    width: 90%;
+    width: 100%;
     border-top: 5px solid #000;
     border-bottom: 5px solid #000;
     border-left: 5px solid #000;
     border-right: 5px solid #000;
     /* border-radius: 10px 0 0 10px; */
     cursor: pointer;
+    background: #000;
 }
 
 .customTable {
@@ -292,6 +303,10 @@ body{
 {
     border: 2px solid #ddd;
     padding: 4px;
+}
+
+.customTable tr:nth-child(odd) {
+    background-color: #fff;
 }
 
 .customTable tr:nth-child(even) {
@@ -308,7 +323,6 @@ body{
     padding: 8px;
     padding-top: 6px;
     padding-bottom: 6px;
-    text-align: left;
     background-color: #088C00;
     color: white;
 }
@@ -321,7 +335,7 @@ body{
 
 .selectionItem{
     color: #fff;
-    background-color: #088C00;
+    background-color: #045115;
     border-radius: 50rem;
     margin: 1rem .5rem;
     border: .1rem solid #333;
@@ -329,6 +343,7 @@ body{
     padding: .5rem 0;
     text-align: center;
     cursor: pointer;
+    /* background-image: linear-gradient(45deg, #73B51A 0%, #1D5430 100%); */
 }
 
 .selectionItem.active{
@@ -339,13 +354,17 @@ body{
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
+    /* background-color: #F5F5F5; */
+    background-color: #000;
 }
 
 .customTableCover::-webkit-scrollbar
 {
-	width: 12px;
-	background-color: #F5F5F5;
+    width: 8px;
+    height: 8px;
+    /* background-color: #F5F5F5; */
+    background-color: #000;
+    
 }
 
 .customTableCover::-webkit-scrollbar-thumb
@@ -353,17 +372,103 @@ body{
 	border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #ccc
+    /* background-color: #ccc; */
+    background-color: #3BA87A;
+    background-clip: content-box;
 }
 
-.customTable1DataCount{
-    font-weight: 900;
+.overallCover::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    /* background-color: #F5F5F5; */
+    background-color: #000;
 }
+
+.overallCover::-webkit-scrollbar
+{
+	width: 8px;
+    /* background-color: #F5F5F5; */
+    background-color: #000;
+    
+}
+
+.overallCover::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    /* background-color: #ccc; */
+    background-color: #fff;
+    background-clip: content-box;
+}
+
 
 
 .customTableInnerCover{
     display: none;
     width: 100%;
+    background: #000;
+}
+
+
+
+.customTable1Counter{
+    font-weight: 600;
+    color: #040046;
+    text-align: center;
+    background: #B0D8B7;
+    border: 2px solid #000 !important;
+}
+
+.customTable1Code{
+    border-left: 2px solid #000 !important;
+}
+
+
+.customTable1_Nkw{
+    color: #005cc5;
+}
+
+.customTable1_Nid{
+    color: #000;
+}
+
+.customTable1_Nop{
+    color: #BF4EFF;
+}
+
+.customTable1_Nnv{
+    color: #D00F2C;
+}
+
+.customTable1_Nsl{
+    color: #088C00;
+    border-right: 2px solid #000 !important;
+}
+
+
+.customTable1DataCount{
+    font-weight: 600;
+    text-align: center;
+}
+
+
+.customTable1Total{
+    background: #042807;
+    color: #f1f1f1;
+    font-weight: 900;
+    text-align: center;
+    border: 2px solid #6D6E72 !important;
+    border-right: 2px solid #000 !important;
+}
+
+.finalRowBorder{
+   border-bottom: 3px solid #000 !important;
+}
+
+.centerHeader{
+    text-align: center;
 }
 
 .rotatedWord{
@@ -454,7 +559,7 @@ body{
 }
 
 .setWeight{
-    background: #73B51A;
+    background: #045115;
     width: 20%;
     padding: .5rem 0;
     color: #fff;
@@ -462,7 +567,7 @@ body{
     border-radius: 5rem;
     margin: .5rem 2rem;
     cursor: pointer;
-    background-image: linear-gradient(45deg, #73B51A 0%, #1D5430 100%);
+    /* background-image: linear-gradient(45deg, #73B51A 0%, #1D5430 100%); */
     border: 1px solid #000;
 
 }
@@ -537,4 +642,11 @@ body{
     text-align: center;
     border: 2px solid #000;
     
+}
+
+
+
+.inputNumbrs{
+    width: 100%;
+    text-align: center;
 }

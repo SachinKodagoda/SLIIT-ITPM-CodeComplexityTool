@@ -67,6 +67,7 @@ class Admin extends BaseController
                 $stringWithSpaces = str_replace(' ', '&nbsp;',$convertedTostring);
                 $stringWithSpacesAndTabs = str_replace("\t", '&nbsp;&nbsp;',$stringWithSpaces);
                 $fixedStringArr = explode("\n", $stringWithSpacesAndTabs);
+                // $fixedStringArr  = explode("\n", $convertedTostring);
 
                 //Testing
                 $bugTest = explode("\n", strtolower($convertedTostring));
@@ -417,30 +418,31 @@ class Admin extends BaseController
 
                     // Final Data in a 3D array ##########################################################################
                     $dataArr[$i] = array(
-                        "lineNo" => $i,
-                        "code" => $fixedStringArr[$i],
+                        "LineNo" => $i,
+                        "Code" => $fixedStringArr[$i],                  
                         // "code" => $nonwordCharRemovedArray[$i],
-                        "cs" => ($wkw * $nkw) + ($wid * $nid) + ($wop * $nop) + ($wnv * $nnv) + ($wsl * $nsl),
 
-                        "nkw" => $nkw,
-                        "wkw" => $wkw,
-                        "cskw" => $wkw * $nkw,
+                        "Cs" => ($wkw * $nkw) + ($wid * $nid) + ($wop * $nop) + ($wnv * $nnv) + ($wsl * $nsl),
 
-                        "nid" => $nid,
-                        "wid" => $wid,
-                        "csid" => $wid * $nid,
+                        "Nkw" => $nkw,
+                        "Wkw" => $wkw,
+                        "Cskw" => $wkw * $nkw,
 
-                        "nop" => $nop,
-                        "wop" => $wop,
-                        "csop" => $wop * $nop,
+                        "Nid" => $nid,
+                        "Wid" => $wid,
+                        "Csid" => $wid * $nid,
 
-                        "nnv" => $nnv,
-                        "wnv" => $wnv,
-                        "csnv" => $wnv * $nnv,
+                        "Nop" => $nop,
+                        "Wop" => $wop,
+                        "Csop" => $wop * $nop,
 
-                        "nsl" => $nsl,
-                        "wsl" => $wsl,
-                        "cssl" => $wsl * $nsl,
+                        "Nnv" => $nnv,
+                        "Wnv" => $wnv,
+                        "Csnv" => $wnv * $nnv,
+
+                        "Nsl" => $nsl,
+                        "Wsl" => $wsl,
+                        "Cssl" => $wsl * $nsl,
 
                         //Thses are mannually added
                         "Wvs" => 0,
