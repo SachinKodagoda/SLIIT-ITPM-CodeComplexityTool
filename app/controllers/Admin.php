@@ -97,6 +97,9 @@ class Admin extends BaseController
                 ];
 
 
+                
+
+
                 $digitalRemovedString = preg_replace('/\d/', '', $convertedTostring);
                 $finalCutForSpWords = strtolower($digitalRemovedString);
 
