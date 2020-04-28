@@ -448,12 +448,12 @@
         var table_1_headerArray = [
             "Line no ",
             "Program Statements",
-            "<div class='tooltip'>Nkw <span class='tooltiptext'>Number of Keywords</span></div>",
-            "<div class='tooltip'>Nid <span class='tooltiptext'>Number of Identifiers</span></div>",
-            "<div class='tooltip'>Nop <span class='tooltiptext'>Number of Operators</span></div>",
-            "<div class='tooltip'>Nnv <span class='tooltiptext'>Number of Numerical Values</span></div>",
-            "<div class='tooltip'>Nsl <span class='tooltiptext'>Number of String Literals</span></div>",
-            "<div class='tooltip'>Cs  <span class='tooltiptext'>Complexity of Size</span></div>"
+            "<div class='tooltip'>(Nkw) * Wkw <span class='tooltiptext'>(Number of Keywords)<br/>*<br/> Weight of Keywords </span></div>",
+            "<div class='tooltip'>(Nid) * Wid <span class='tooltiptext'>(Number of Identifiers)<br/>*<br/> Weight of Identifiers </span></div>",
+            "<div class='tooltip'>(Nop) * Wop <span class='tooltiptext'>(Number of Operators)<br/>*<br/> Weight of Operators </span></div>",
+            "<div class='tooltip'>(Nnv) * Wnv <span class='tooltiptext'>(Number of Numerical Values)<br/>*<br/> Weight of Numerical Values </span></div>",
+            "<div class='tooltip'>(Nsl) * Wsl <span class='tooltiptext'>(Number of String Literals)<br/>*<br/> Weight of String Literals </span></div>",
+            "<div class='tooltip'>Cs<span class='tooltiptext'>Complexity of Size</span></div>"
         ];
         var table_1_bodyArray = ["LineNo", "Code", "Nkw", "Nid", "Nop", "Nnv", "Nsl", "Cs"];
         var table_1_weight = ["", "", 1, 1, 1, 1, 1, ""];
@@ -466,24 +466,31 @@
         var table_2_headerArray = [
             "Line no",
             "Program Statements",
-            "<div class='tooltip'>Ngv<span class='tooltiptext'>Number of Global Variables</span></div>",
-            "<div class='tooltip'>Nlv<span class='tooltiptext'>Number of Local Variables</span></div>",
-            "<div class='tooltip'>Npdtv<span class='tooltiptext'>Number of Primitive Data type Variables</span></div>",
-            "<div class='tooltip'>Ncdtv<span class='tooltiptext'>Number of Composite Data type Variables</span></div>",
+            "<div class='tooltip'>(Npdtv) * Wpdtv * Wvs<span class='tooltiptext'>(Number of Primitive Data type Variables)<br/>*<br/> Weight of primitive data type variables <br/>*<br/>Weight due to variable scope</span></div>",
+            "<div class='tooltip'>(Ncdtv) * Wcdtv * Wvs<span class='tooltiptext'>(Number of Composite Data type Variables)<br/>*<br/> Weight of composite data type variables <br/>*<br/>Weight due to variable scope</span></div>",
             "<div class='tooltip'>Cv<span class='tooltiptext'>Complexity of Variables</span></div>"
         ];
 
-        var table_2_bodyArray = ["LineNo", "Code", "Ngv", "Nlv", "Npdtv", "Ncdtv", "Cv"];
-        var table_2_weight = ["", "", 1, 1, 1, 1, ""];
+        var table_2_bodyArray = ["LineNo", "Code", "Npdtv", "Ncdtv", "Cv"];
+        // ["LineNo", "Code", "Ngv", "Nlv", "Npdtv", "Ncdtv", "Cv"]
+        var table_2_weight = ["", "", 2, 1, 1, 2, ""];
 
         if (sessionStorage.getItem("table_2_weight")) {
             // table_2_weight = JSON.parse(sessionStorage.getItem("table_2_weight"));
         }
 
         var table_3 = document.getElementById('table_3_inner');
-        var table_3_headerArray = ["Line no", "Program Statements", "Wmrt", "Npdtp", "Ncdtp", "Cm"];
+        var table_3_headerArray = [
+            "Line no",
+            "Program Statements",
+            "<div class='tooltip'>Wmrt<span class='tooltiptext'>Weight due to method return type</span></div>",
+            "<div class='tooltip'>(Npdtp) * Wpdtp<span class='tooltiptext'>(Number of primitive data type parameters)<br/>*<br/>Weight of primitive data type parameters</span></div>",
+            "<div class='tooltip'>(Ncdtp) * Wcdtp<span class='tooltiptext'>(Number of composite data type parameters)<br/>*<br/>Weight of composite data type parameters</span></div>",
+            "<div class='tooltip'>Cm<span class='tooltiptext'>Complexity of a line which includes a method signature</span></div>"
+        ];
         var table_3_bodyArray = ["LineNo", "Code", "Wmrt", "Npdtp", "Ncdtp", "Cm"];
-        var table_3_weight = ["", "", 1, 1, 1, ""];
+        // ["NOfVoidReturns" 0, "NOfPrimitiveReturns" 1, "NOfCompositeReturns" 2, "Npdtp" 3, "Ncdtp" 4]
+        var table_3_weight = [0, 1, 2, 1, 2];
 
         if (sessionStorage.getItem("table_3_weight")) {
             // table_3_weight = JSON.parse(sessionStorage.getItem("table_3_weight"));
@@ -525,9 +532,9 @@
         }
 
         var table_6 = document.getElementById('table_6_inner');
-        var table_6_headerArray = ["Line no", "Program Statements", "No of direct inheritances", "No of indirect inheritances", "Total inheritances", "Ci"];
+        var table_6_headerArray = ["Line no", "Program Statements", "No of<br/>direct inheritances", "No of<br/>indirect inheritances", "Total<br/>inheritances", "Ci"];
         var table_6_bodyArray = ["LineNo", "Code", "", "", "", ""];
-        var table_6_weight = ["", "", 1, 1, 1, 1, 1, ""];
+        var table_6_weight = ["", "", 1, 1, 1, ""];
 
 
         if (sessionStorage.getItem("table_6_weight")) {
@@ -537,14 +544,9 @@
         var table_7 = document.getElementById('table_7_inner');
         var table_7_headerArray = ["Line no", "Program Statements", "Cs", "Cv", "Cm", "Ci", "Ccp", "Ccs", "TCps"];
         var table_7_bodyArray = ["LineNo", "Code", "", "", "", "", "", "", ""];
-        var table_7_weight = ["", "", 1, 1, 1, 1, 1, ""];
+        var table_7_weight = ["", "", 1, 1, 1, 1, 1, 1, ""];
 
-
-
-
-
-        function tableCreate(xtable, xheaderArray, xbodyArray, xweightArray) {
-
+        function tableCreate(xtable, xheaderArray, xbodyArray, xweightArray, tableNum) {
             var thead = document.createElement('thead');
             var thead_tr = document.createElement('tr');
             var tbody = document.createElement('tbody');
@@ -553,7 +555,6 @@
                 var thead_tr_th = document.createElement('th');
                 thead_tr_th.classList.add("centerHeader");
                 thead_tr_th.innerHTML = xheaderArray[i];
-
                 thead_tr.appendChild(thead_tr_th);
             }
 
@@ -563,14 +564,40 @@
             for (var i = 0; i < javascript_array.length; i++) {
                 var tbody_tr = document.createElement('tr');
                 var totCs = 0;
+                var table_2_tot = 0;
+                var table_3_tot = 0;
+                var wmrt_tot = 0;
+                if (tableNum == "2") {
+                    // ["LineNo" 0, "Code" 1, "Ngv" 2, "Nlv" 3, "Npdtv" 4, "Ncdtv" 5, "Cv" 6]
+                    // Wvs [(Wpdtv * Npdtv) + (Wcdtv * Ncdtv)]
+                    var premitive = (parseInt(javascript_array[i]['Npdtv'], 10) * xweightArray[4]) * (parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[2] : xweightArray[3]);
+                    var composite = (parseInt(javascript_array[i]['Ncdtv'], 10) * xweightArray[5]) * (parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[2] : xweightArray[3]);
+                    table_2_tot = premitive + composite;
+                }
+
+                if (tableNum == "3") {
+                    // ["NOfVoidReturns" 0, "NOfPrimitiveReturns" 1, "NOfCompositeReturns" 2, "Npdtp" 3, "Ncdtp" 4]
+                    // Wmrt + (Wpdtp * Npdtp) + (Wcdtp * Ncdtp)
+                    var voidReturns = parseInt(javascript_array[i]['NOfVoidReturns'], 10) * xweightArray[0];
+                    var primaryReturns = parseInt(javascript_array[i]['NOfPrimitiveReturns'], 10) * xweightArray[1];
+                    var compositeReturns = parseInt(javascript_array[i]['NOfCompositeReturns'], 10) * xweightArray[2];
+                    wmrt_tot = voidReturns + primaryReturns + compositeReturns;
+                    var premitiveParas = parseInt(javascript_array[i]['Npdtp'], 10) * xweightArray[3];
+                    var compositeParas = parseInt(javascript_array[i]['Ncdtp'], 10) * xweightArray[4];
+                    table_3_tot = wmrt_tot + premitiveParas + compositeParas;
+                }
                 for (var j = 0; j < xheaderArray.length; j++) {
                     var tbody_tr_td = document.createElement('td');
-                    if (
-                        (j != 0) &&
-                        (j != 1) &&
-                        (j != xweightArray.length - 1)
-                    ) {
-                        totCs += parseInt(javascript_array[i][xbodyArray[j]], 10) * xweightArray[j];
+                    if (tableNum == "2") {
+
+                    } else {
+                        if (
+                            (j != 0) &&
+                            (j != 1) &&
+                            (j != xweightArray.length - 1)
+                        ) {
+                            totCs += parseInt(javascript_array[i][xbodyArray[j]], 10) * xweightArray[j];
+                        }
                     }
 
                     switch (j) {
@@ -583,14 +610,40 @@
                             tbody_tr_td.classList.add("customTable1Code");
                             tbody_tr_td.innerHTML = javascript_array[i][xbodyArray[j]];
                             break;
-                        case (xweightArray.length - 1):
+                        case (xbodyArray.length - 1):
                             tbody_tr_td.classList.add("customTable1Total");
-                            tbody_tr_td.innerHTML = totCs;
+                            if (tableNum == "2") {
+                                tbody_tr_td.innerHTML = table_2_tot;
+                            } else if (tableNum == "3") {
+                                tbody_tr_td.innerHTML = table_3_tot;
+                            } else {
+                                tbody_tr_td.innerHTML = totCs;
+                            }
                             break;
                         default:
                             tbody_tr_td.classList.add("customTable1DataCount");
                             if (parseInt(javascript_array[i][xbodyArray[j]], 10) > 0) {
-                                tbody_tr_td.innerHTML = javascript_array[i][xbodyArray[j]];
+                                if (tableNum == "2") {
+                                    if (j == 2) {
+                                        tbody_tr_td.innerHTML = "( " + javascript_array[i][xbodyArray[j]] + " ) * " + xweightArray[4] + " * ";
+                                        tbody_tr_td.innerHTML += parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[2] : xweightArray[3];
+                                    } else if (j == 3) {
+                                        tbody_tr_td.innerHTML = "( " + javascript_array[i][xbodyArray[j]] + " ) * " + xweightArray[5] + " * ";
+                                        tbody_tr_td.innerHTML += parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[2] : xweightArray[3];
+                                    }
+                                } else if(tableNum == "3"){
+
+
+                                    if (j == 2) {
+                                        tbody_tr_td.innerHTML = "( " + javascript_array[i]['Npdtp'] + " ) * " + xweightArray[3];
+                                    } else if (j == 3) {
+                                        tbody_tr_td.innerHTML = "( " + javascript_array[i]['Ncdtp'] + " ) * " + xweightArray[4];
+                                    }
+
+
+                                }else {
+                                    tbody_tr_td.innerHTML = "( " + javascript_array[i][xbodyArray[j]] + " ) * " + xweightArray[j];
+                                }
                             } else {
                                 tbody_tr_td.innerHTML = "";
                             }
@@ -635,11 +688,13 @@
             table_5.innerHTML = "";
             table_6.innerHTML = "";
             table_7.innerHTML = "";
-            tableCreate(table_1, table_1_headerArray, table_1_bodyArray, table_1_weight);
-            tableCreate(table_2, table_2_headerArray, table_2_bodyArray, table_2_weight);
-            tableCreate(table_3, table_3_headerArray, table_3_bodyArray, table_3_weight);
-            tableCreate(table_4, table_4_headerArray, table_4_bodyArray, table_4_weight);
-            tableCreate(table_5, table_5_headerArray, table_5_bodyArray, table_5_weight);
+            tableCreate(table_1, table_1_headerArray, table_1_bodyArray, table_1_weight, "1");
+            tableCreate(table_2, table_2_headerArray, table_2_bodyArray, table_2_weight, "2");
+            tableCreate(table_3, table_3_headerArray, table_3_bodyArray, table_3_weight, "3");
+            tableCreate(table_4, table_4_headerArray, table_4_bodyArray, table_4_weight, "4");
+            tableCreate(table_5, table_5_headerArray, table_5_bodyArray, table_5_weight, "5");
+            tableCreate(table_6, table_6_headerArray, table_6_bodyArray, table_6_weight, "6");
+            tableCreate(table_7, table_7_headerArray, table_7_bodyArray, table_7_weight, "7");
             codeColor();
         }
 

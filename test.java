@@ -2,9 +2,17 @@ import java.util.Scanner;
 
 public class Maths2 {
     double num = 0.0;
+    int[] myNum;
+    int back[];
+    List<String> al=new ArrayList<String>();  
+    HashMap<String, String> capitalCities = new HashMap<String, String>();
+    Hashtable<Integer,String> ht=new Hashtable<Integer,String>();
+    TreeMap<Integer, String> tree_map = new TreeMap<Integer, String>();
+    LinkedHashMap<Integer,String> hm=new LinkedHashMap<Integer,String>();
+    Map<Integer,String> map=new LinkedHashMap<Integer,String>();
 
     public static void main(String[] args) {
-        double x , y = 3;
+        double x , z, y = 3;
         int xs;
         xs = 3;
         Maths2 m2 = new Maths2();
@@ -43,6 +51,15 @@ public class Maths2 {
 
     public void answer() {
         Maths2 m1 = new Maths2();
+        String s = "";
+        String xxs = " ";
+
+        String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+
+        int[][] myNumbers = { {1, 2, 3, 4}, {5, 6, 7} };
+
+        int[ ] myNum = {10, 20, 30, 40};
+        int[5 ] myNum;
 
         Scanner input = new Scanner(System.in);
         System.out.print("Enter a number:");
