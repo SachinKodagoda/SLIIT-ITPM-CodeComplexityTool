@@ -26,11 +26,7 @@
 
         <div class="topSettingBar">
             <div class="setWeight" onclick="showWeightTable()">Set Weight</div>
-            <select id="fileSelectedOption">
-                <option value="test1">test1.java</option>
-                <option value="test2">test2.java</option>
-                <option value="test2">test3.java</option>
-            </select>
+            <select id="fileSelectedOption" onchange="selectChanged(this)"></select>
             <div class="programComplexity" id="programComplexity">Program Complexity<span class="programComplexitySpan">1</span></div>
         </div>
         <div class="selectionItemCover">
@@ -81,78 +77,12 @@
             <!-- Inheritance Table -->
             <div class="customTableInnerCover" id="table_6">
                 <table class="customTable" id="table_6_inner">
-                    <thead>
-                        <tr>
-                            <th>Line no</th>
-                            <th>Program Statements</th>
-                            <th>No of direct <br /> inheritances</th>
-                            <th>No of indirect <br /> inheritances</th>
-                            <th>Total <br /> inheritances</th>
-                            <th>Ci</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($data['complexity_values'] as $item) : ?>
-                            <tr>
-                                <?php
-                                echo "<td>" . ($item['LineNo'] + 1) . "</td>";
-                                echo "<td class='javaHigh'>" . $item['Code'] . "</td>";
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                                ?>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
                 </table>
             </div>
 
             <!-- All Factor Table -->
             <div class="customTableInnerCover" id="table_7">
                 <table class="customTable" id="table_7_inner">
-                    <thead>
-                        <tr>
-                            <th>Line no</th>
-                            <th>Program Statements</th>
-                            <th>Cs</th>
-                            <th>Cv</th>
-                            <th>Cm</th>
-                            <th>Ci</th>
-                            <th>Ccp</th>
-                            <th>Ccs</th>
-                            <th>TCps</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($data['complexity_values'] as $item) : ?>
-                            <tr>
-                                <?php
-                                echo "<td>" . ($item['LineNo'] + 1) . "</td>";
-                                echo "<td class='javaHigh'>" . $item['Code'] . "</td>";
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                                ?>
-                            </tr>
-                        <?php endforeach; ?>
-                        <tr>
-                            <?php
-                            echo "<td colspan='2' style='text-align:center; font-weight: 900'> Total</td>";
-                            echo "<td>0</td>";
-                            echo "<td>0</td>";
-                            echo "<td>0</td>";
-                            echo "<td>0</td>";
-                            echo "<td>0</td>";
-                            echo "<td>0</td>";
-                            echo "<td>0</td>";
-                            ?>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
 
@@ -164,7 +94,7 @@
                 <div class="uploadModalBack" onclick="" id="uploadModalBack"></div>
                 <div class="uploadModal" id="uploadModal_upload">
                     <form action="<?php echo URLROOT; ?>/admin" method="post" enctype="multipart/form-data" class="fileSubmitForm">
-                        <input type="file" name="fileToUpload" id="fileToUpload" class="fileSubmitForm_item">
+                        <input type="file" name="upload[]" id="fileToUpload" class="fileSubmitForm_item" multiple="multiple">
                         <input type="submit" value="Upload Code" name="submit" class="fileSubmitForm_item fileSubmitForm_item-btn">
                     </form>
                 </div>
@@ -433,16 +363,40 @@
             </div>
         </div><!-- EndOfThe customTableCover -->
     </div>
-
-
     <script src="<?php echo URLROOT ?>/js/color.js" type="text/javascript"></script>
     <script type='text/javascript'>
         var javascript_array = [];
+        var javascript_fullData = [];
+        var javascript_filenames = [];
         <?php
-        $php_array = $data['complexity_values'];
-        $js_array = json_encode($php_array);
-        echo "javascript_array = " . $js_array . ";\n";
+        $php_complexity_values = $data["complexity_values"];
+        $php_file_names = $data["file_names"];
+        $php_complexity_values_encoded = json_encode($php_complexity_values);
+        $php_file_names_encoded = json_encode($php_file_names);
+        echo "javascript_fullData = " . $php_complexity_values_encoded . ";\n";
+        echo "javascript_filenames = " . $php_file_names_encoded . ";\n";
         ?>
+
+
+
+
+        function addSelection(item) {
+            var dropdown = document.getElementById("fileSelectedOption");
+            dropdown.innerHTML = "";
+            for (let x = 0; x < javascript_filenames.length; x++) {
+                var option = document.createElement("option");
+                option.text = javascript_filenames[x];
+                option.value = x;
+                dropdown.add(option);
+            }
+            dropdown.selectedIndex = item;
+        }
+
+        function selectChanged(item) {
+            createAllTables(item.value);
+        }
+
+        javascript_array = javascript_fullData[0];
 
         var table_1 = document.getElementById('table_1_inner');
         var table_1_headerArray = [
@@ -472,8 +426,8 @@
         ];
 
         var table_2_bodyArray = ["LineNo", "Code", "Npdtv", "Ncdtv", "Cv"];
-        // ["LineNo", "Code", "Ngv", "Nlv", "Npdtv", "Ncdtv", "Cv"]
-        var table_2_weight = ["", "", 2, 1, 1, 2, ""];
+        // ["Ngv 0", "Nlv 1", "Npdtv 2", "Ncdtv 3"]
+        var table_2_weight = [2, 1, 1, 2];
 
         if (sessionStorage.getItem("table_2_weight")) {
             // table_2_weight = JSON.parse(sessionStorage.getItem("table_2_weight"));
@@ -483,7 +437,7 @@
         var table_3_headerArray = [
             "Line no",
             "Program Statements",
-            "<div class='tooltip'>Wmrt<span class='tooltiptext'>Weight due to method return type</span></div>",
+            "<div class='tooltip'>(Nvr) * Wvr + (Npr) * Wpr + (Ncr) * Wcr<span class='tooltiptext'>(Number of void returns)<br/>*<br/>Weight of void returns<br/>+<br/>(Number of primitive returns)<br/>*<br/>Weight of primitive returns<br/>+<br/>(Number of composite returns)<br/>*<br/>Weight of composite returns</span></div>",
             "<div class='tooltip'>(Npdtp) * Wpdtp<span class='tooltiptext'>(Number of primitive data type parameters)<br/>*<br/>Weight of primitive data type parameters</span></div>",
             "<div class='tooltip'>(Ncdtp) * Wcdtp<span class='tooltiptext'>(Number of composite data type parameters)<br/>*<br/>Weight of composite data type parameters</span></div>",
             "<div class='tooltip'>Cm<span class='tooltiptext'>Complexity of a line which includes a method signature</span></div>"
@@ -560,18 +514,19 @@
 
             thead.appendChild(thead_tr);
             xtable.appendChild(thead);
-
+            var final_tot = 0;
             for (var i = 0; i < javascript_array.length; i++) {
                 var tbody_tr = document.createElement('tr');
                 var totCs = 0;
                 var table_2_tot = 0;
                 var table_3_tot = 0;
                 var wmrt_tot = 0;
+
                 if (tableNum == "2") {
-                    // ["LineNo" 0, "Code" 1, "Ngv" 2, "Nlv" 3, "Npdtv" 4, "Ncdtv" 5, "Cv" 6]
+                    // ["Ngv 0", "Nlv 1", "Npdtv 2", "Ncdtv 3"]
                     // Wvs [(Wpdtv * Npdtv) + (Wcdtv * Ncdtv)]
-                    var premitive = (parseInt(javascript_array[i]['Npdtv'], 10) * xweightArray[4]) * (parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[2] : xweightArray[3]);
-                    var composite = (parseInt(javascript_array[i]['Ncdtv'], 10) * xweightArray[5]) * (parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[2] : xweightArray[3]);
+                    var premitive = (parseInt(javascript_array[i]['Npdtv'], 10) * xweightArray[2]) * (parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[0] : xweightArray[1]);
+                    var composite = (parseInt(javascript_array[i]['Ncdtv'], 10) * xweightArray[3]) * (parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[0] : xweightArray[1]);
                     table_2_tot = premitive + composite;
                 }
 
@@ -614,38 +569,69 @@
                             tbody_tr_td.classList.add("customTable1Total");
                             if (tableNum == "2") {
                                 tbody_tr_td.innerHTML = table_2_tot;
+                                final_tot += table_2_tot;
                             } else if (tableNum == "3") {
                                 tbody_tr_td.innerHTML = table_3_tot;
+                                final_tot += table_3_tot;
                             } else {
                                 tbody_tr_td.innerHTML = totCs;
+                                final_tot += totCs;
                             }
                             break;
                         default:
                             tbody_tr_td.classList.add("customTable1DataCount");
-                            if (parseInt(javascript_array[i][xbodyArray[j]], 10) > 0) {
-                                if (tableNum == "2") {
-                                    if (j == 2) {
-                                        tbody_tr_td.innerHTML = "( " + javascript_array[i][xbodyArray[j]] + " ) * " + xweightArray[4] + " * ";
-                                        tbody_tr_td.innerHTML += parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[2] : xweightArray[3];
-                                    } else if (j == 3) {
-                                        tbody_tr_td.innerHTML = "( " + javascript_array[i][xbodyArray[j]] + " ) * " + xweightArray[5] + " * ";
-                                        tbody_tr_td.innerHTML += parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[2] : xweightArray[3];
+                            if (tableNum == "2") {
+                                if (j == 2) {
+                                    // ["Ngv 0", "Nlv 1", "Npdtv 2", "Ncdtv 3"]
+                                    if (parseInt(javascript_array[i]['Npdtv'], 10) > 0) {
+                                        tbody_tr_td.innerHTML = "( " + javascript_array[i]['Npdtv'] + " ) * " + xweightArray[2] + " * ";
+                                        tbody_tr_td.innerHTML += parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[0] : xweightArray[1];
+                                    } else {
+                                        tbody_tr_td.innerHTML = "";
                                     }
-                                } else if(tableNum == "3"){
-
-
-                                    if (j == 2) {
-                                        tbody_tr_td.innerHTML = "( " + javascript_array[i]['Npdtp'] + " ) * " + xweightArray[3];
-                                    } else if (j == 3) {
-                                        tbody_tr_td.innerHTML = "( " + javascript_array[i]['Ncdtp'] + " ) * " + xweightArray[4];
+                                } else if (j == 3) {
+                                    // ["Ngv 0", "Nlv 1", "Npdtv 2", "Ncdtv 3"]
+                                    if (parseInt(javascript_array[i]['Ncdtv'], 10) > 0) {
+                                        tbody_tr_td.innerHTML = "( " + javascript_array[i]['Ncdtv'] + " ) * " + xweightArray[3] + " * ";
+                                        tbody_tr_td.innerHTML += parseInt(javascript_array[i]['Ngv'], 10) > 0 ? xweightArray[0] : xweightArray[1];
+                                    } else {
+                                        tbody_tr_td.innerHTML = "";
                                     }
-
-
-                                }else {
-                                    tbody_tr_td.innerHTML = "( " + javascript_array[i][xbodyArray[j]] + " ) * " + xweightArray[j];
                                 }
+                            } else if (tableNum == "3") {
+                                if (j == 2) {
+                                    if (
+                                        parseInt(javascript_array[i]['NOfVoidReturns'], 10) > 0 ||
+                                        parseInt(javascript_array[i]['NOfPrimitiveReturns'], 10) > 0 ||
+                                        parseInt(javascript_array[i]['NOfCompositeReturns'], 10) > 0
+                                    ) {
+                                        tbody_tr_td.innerHTML = "( " + parseInt(javascript_array[i]['NOfVoidReturns'], 10) + " ) * " + xweightArray[0];
+                                        tbody_tr_td.innerHTML += " + ( " + parseInt(javascript_array[i]['NOfPrimitiveReturns'], 10) + " ) * " + xweightArray[1];
+                                        tbody_tr_td.innerHTML += " + ( " + parseInt(javascript_array[i]['NOfCompositeReturns'], 10) + " ) * " + xweightArray[2];
+                                    } else {
+                                        tbody_tr_td.innerHTML = "";
+                                    }
+                                } else if (j == 3) {
+                                    if (parseInt(javascript_array[i]['Npdtp'], 10) > 0) {
+                                        tbody_tr_td.innerHTML = "( " + javascript_array[i]['Npdtp'] + " ) * " + xweightArray[3];
+                                    } else {
+                                        tbody_tr_td.innerHTML = "";
+                                    }
+                                } else if (j == 4) {
+                                    if (parseInt(javascript_array[i]['Ncdtp'], 10) > 0) {
+                                        tbody_tr_td.innerHTML = "( " + javascript_array[i]['Ncdtp'] + " ) * " + xweightArray[4];
+                                    } else {
+                                        tbody_tr_td.innerHTML = "";
+                                    }
+                                }
+
+
                             } else {
-                                tbody_tr_td.innerHTML = "";
+                                if (parseInt(javascript_array[i][xbodyArray[j]], 10) > 0) {
+                                    tbody_tr_td.innerHTML = "( " + javascript_array[i][xbodyArray[j]] + " ) * " + xweightArray[j];
+                                } else {
+                                    tbody_tr_td.innerHTML = "";
+                                }
                             }
                             break;
                     }
@@ -676,11 +662,32 @@
                     tbody_tr.appendChild(tbody_tr_td);
                 }
                 tbody.appendChild(tbody_tr);
+                if (i + 1 == javascript_array.length) {
+                    if (true) {
+                        var tbody_tr = document.createElement('tr');
+                        for (let m = 0; m < xheaderArray.length; m++) {
+                            var tbody_tr_td = document.createElement('td');
+                            if (m + 1 == xheaderArray.length) {
+                                tbody_tr_td.innerHTML = final_tot;
+                                tbody_tr_td.classList.add("bonus_table");
+                            } else {
+                                tbody_tr_td.innerHTML = "";
+                                tbody_tr_td.classList.add("bonus_table");
+                            }
+                            tbody_tr.appendChild(tbody_tr_td);
+                        }
+                        tbody.appendChild(tbody_tr);
+                    }
+                }
             }
             xtable.appendChild(tbody);
+            final_tot = 0;
         }
 
-        function createAllTables() {
+
+
+        function createAllTables(item) {
+            javascript_array = javascript_fullData[item];
             table_1.innerHTML = "";
             table_2.innerHTML = "";
             table_3.innerHTML = "";
@@ -696,6 +703,7 @@
             tableCreate(table_6, table_6_headerArray, table_6_bodyArray, table_6_weight, "6");
             tableCreate(table_7, table_7_headerArray, table_7_bodyArray, table_7_weight, "7");
             codeColor();
+            setWeightItems();
         }
 
         function setWeightItems() {
@@ -705,21 +713,20 @@
             document.getElementById('1_numerical_value').value = table_1_weight[5];
             document.getElementById('1_string_value').value = table_1_weight[6];
 
-            document.getElementById('2_global_variables').value = table_2_weight[2];
-            document.getElementById('2_local_variables').value = table_2_weight[3];
-            document.getElementById('2_primitive_variables').value = table_2_weight[4];
-            document.getElementById('2_composite_variables').value = table_2_weight[5];
+            document.getElementById('2_global_variables').value = table_2_weight[0];
+            document.getElementById('2_local_variables').value = table_2_weight[1];
+            document.getElementById('2_primitive_variables').value = table_2_weight[2];
+            document.getElementById('2_composite_variables').value = table_2_weight[3];
 
-            document.getElementById('3_primitive_return').value = table_3_weight[2];
-            document.getElementById('3_composite_return').value = table_3_weight[3];
-            document.getElementById('3_void_return').value = table_3_weight[4];
-            document.getElementById('3_primitive_parameter').value = table_3_weight[5];
-            document.getElementById('3_composite_parameter').value = table_3_weight[6];
+            // ["NOfVoidReturns" 0, "NOfPrimitiveReturns" 1, "NOfCompositeReturns" 2, "Npdtp" 3, "Ncdtp" 4]
+            document.getElementById('3_void_return').value = table_3_weight[0];
+            document.getElementById('3_primitive_return').value = table_3_weight[1];
+            document.getElementById('3_composite_return').value = table_3_weight[2];
+            document.getElementById('3_primitive_parameter').value = table_3_weight[3];
+            document.getElementById('3_composite_parameter').value = table_3_weight[4];
         }
 
         function inputChanged(item) {
-
-
             switch (item) {
                 case "complexityOfSizes":
                     table_1_weight[2] = parseInt(document.getElementById('1_keyword_value').value, 10);
@@ -729,31 +736,31 @@
                     table_1_weight[6] = parseInt(document.getElementById('1_string_value').value, 10);
                     break;
                 case "complexityOfVariables":
-                    table_2_weight[2] = parseInt(document.getElementById('2_global_variables').value, 10);
-                    table_2_weight[3] = parseInt(document.getElementById('2_local_variables').value, 10);
-                    table_2_weight[4] = parseInt(document.getElementById('2_primitive_variables').value, 10);
-                    table_2_weight[5] = parseInt(document.getElementById('2_composite_variables').value, 10);
+                    table_2_weight[0] = parseInt(document.getElementById('2_global_variables').value, 10);
+                    table_2_weight[1] = parseInt(document.getElementById('2_local_variables').value, 10);
+                    table_2_weight[2] = parseInt(document.getElementById('2_primitive_variables').value, 10);
+                    table_2_weight[3] = parseInt(document.getElementById('2_composite_variables').value, 10);
                     break;
                 case "complexityOfMethods":
-                    table_3_weight[2] = parseInt(document.getElementById('3_primitive_return').value, 10);
-                    table_3_weight[3] = parseInt(document.getElementById('3_composite_return').value, 10);
-                    table_3_weight[4] = parseInt(document.getElementById('3_void_return').value, 10);
-                    table_3_weight[5] = parseInt(document.getElementById('3_primitive_parameter').value, 10);
-                    table_3_weight[6] = parseInt(document.getElementById('3_composite_parameter').value, 10);
+                    table_3_weight[0] = parseInt(document.getElementById('3_void_return').value, 10);
+                    table_3_weight[1] = parseInt(document.getElementById('3_primitive_return').value, 10);
+                    table_3_weight[2] = parseInt(document.getElementById('3_composite_return').value, 10);
+                    table_3_weight[3] = parseInt(document.getElementById('3_primitive_parameter').value, 10);
+                    table_3_weight[4] = parseInt(document.getElementById('3_composite_parameter').value, 10);
                     break;
                 default:
                     break;
 
             }
-            createAllTables();
+            createAllTables(document.getElementById("fileSelectedOption").value);
             hideModal();
             sessionStorage.setItem("table_1_weight", JSON.stringify(table_1_weight));
             sessionStorage.setItem("table_2_weight", JSON.stringify(table_2_weight));
             sessionStorage.setItem("table_3_weight", JSON.stringify(table_3_weight));
         };
 
-        createAllTables();
-        setWeightItems();
+        // createAllTables(0);
+        addSelection(0);
     </script>
 
     <script src="<?php echo URLROOT ?>/js/jquery.js" type="text/javascript"></script>

@@ -18,8 +18,12 @@ function scope_arr($sanitiedArray)
             array_push($scopeMapArray, $i);
             $CloseBracketCount++;
         }
+        preg_match_all('/\bfor/', $sanitiedArray[$i], $for_arr);
+        preg_match_all('/\bif/', $sanitiedArray[$i], $if_arr);
+        preg_match_all('/\belse/', $sanitiedArray[$i], $else_arr);
+        preg_match_all('/\bwhile/', $sanitiedArray[$i], $while_arr);
 
-        if ((substr_count($sanitiedArray[$i], "for") == true) && (substr_count($sanitiedArray[$i], "{") == false)  && (substr_count($sanitiedArray[$i + 1], "{") == false)) {
+        if ((count($for_arr[0]) > 0) && (substr_count($sanitiedArray[$i], "{") == false)  && (substr_count($sanitiedArray[$i + 1], "{") == false)) {
             array_push(
                 $newOrderScopeArr,
                 array(
@@ -29,7 +33,7 @@ function scope_arr($sanitiedArray)
                 )
             );
         }
-        if ((substr_count($sanitiedArray[$i], "if") == true) && (substr_count($sanitiedArray[$i], "{") == false)  && (substr_count($sanitiedArray[$i + 1], "{") == false)) {
+        if ((count($if_arr[0]) > 0) && (substr_count($sanitiedArray[$i], "{") == false)  && (substr_count($sanitiedArray[$i + 1], "{") == false)) {
             array_push(
                 $newOrderScopeArr,
                 array(
@@ -39,7 +43,7 @@ function scope_arr($sanitiedArray)
                 )
             );
         }
-        if ((substr_count($sanitiedArray[$i], "else") == true) && (substr_count($sanitiedArray[$i], "{") == false)  && (substr_count($sanitiedArray[$i + 1], "{") == false)) {
+        if ((count($else_arr[0]) > 0) && (substr_count($sanitiedArray[$i], "{") == false)  && (substr_count($sanitiedArray[$i + 1], "{") == false)) {
             array_push(
                 $newOrderScopeArr,
                 array(
@@ -49,7 +53,7 @@ function scope_arr($sanitiedArray)
                 )
             );
         }
-        if ((substr_count($sanitiedArray[$i], "while") == true) && (substr_count($sanitiedArray[$i], "{") == false)  && (substr_count($sanitiedArray[$i + 1], "{") == false)) {
+        if ((count($while_arr[0]) > 0) && (substr_count($sanitiedArray[$i], "{") == false)  && (substr_count($sanitiedArray[$i + 1], "{") == false)) {
             array_push(
                 $newOrderScopeArr,
                 array(

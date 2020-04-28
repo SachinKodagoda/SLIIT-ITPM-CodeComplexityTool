@@ -17,9 +17,8 @@ function num_keywords($val)
     ]; // Keywords or Reserve Words
 
     foreach ($keyworArr as $keyword) {
-        $temp = substr_count($val, $keyword);
-        $Nkw += $temp > 0 ? $temp : 0;
+        preg_match_all('/\b'.$keyword.'/', $val, $temp);
+        $Nkw += count($temp[0]) > 0 ? count($temp[0]) : 0;
     }
-    //TODO: this mehod shoud change to regix
     return $Nkw;
 }

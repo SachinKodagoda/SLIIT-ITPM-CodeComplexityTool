@@ -18,80 +18,76 @@ function num_variables($i, $sanitiedArray, $scopedArr,  $specialItemKeepArray, $
         $brokenMethod = explode("(", $sanitiedArray[$i]);
         // echo $brokenMethod[0]; // for return method
         // echo $brokenMethod[1]; // for parameters
-        preg_match_all('/[^\<]\s*boolean\s*\w+\s*[^\>^\[]/', $brokenMethod[1], $parra_arr);
-        $Npdtp += count($parra_arr);
-        preg_match_all('/[^\<]\s*char\s*\w+\s*[^\>^\[]/', $brokenMethod[1], $parra_arr);
-        $Npdtp += count($parra_arr);
-        preg_match_all('/[^\<]\s*byte\s*\w+\s*[^\>^\[]/', $brokenMethod[1], $parra_arr);
-        $Npdtp += count($parra_arr);
-        preg_match_all('/[^\<]\s*short\s*\w+\s*[^\>^\[]/', $brokenMethod[1], $parra_arr);
-        $Npdtp += count($parra_arr);
-        preg_match_all('/[^\<]\s*int\s*\w+\s*[^\>^\[]/', $brokenMethod[1], $parra_arr);
-        $Npdtp += count($parra_arr);
-        preg_match_all('/[^\<]\s*long\s*\w+\s*[^\>^\[]/', $brokenMethod[1], $parra_arr);
-        $Npdtp += count($parra_arr);
-        preg_match_all('/[^\<]\s*float\s*\w+\s*[^\>^\[]/', $brokenMethod[1], $parra_arr);
-        $Npdtp += count($parra_arr);
-        preg_match_all('/[^\<]\s*double\s*\w+\s*[^\>^\[]/', $brokenMethod[1], $parra_arr);
-        $Npdtp += count($parra_arr);
-        preg_match_all('/[^\<]\s*string\s*\w+\s*[^\>^\[]/', $brokenMethod[1], $parra_arr);
-        $Npdtp += count($parra_arr);
+        preg_match_all('/[^<]*\s*boolean\s*\w+\s*[^>^\[]/', $brokenMethod[1], $parra_arr_boolean);
+        $Npdtp += count($parra_arr_boolean[0]);
+        preg_match_all('/[^<]*\s*char\s*\w+\s*[^>^\[]/', $brokenMethod[1], $parra_arr_char);
+        $Npdtp += count($parra_arr_char[0]);
+        preg_match_all('/[^<]*\s*byte\s*\w+\s*[^>^\[]/', $brokenMethod[1], $parra_arr_byte);
+        $Npdtp += count($parra_arr_byte[0]);
+        preg_match_all('/[^<]*\s*short\s*\w+\s*[^>^\[]/', $brokenMethod[1], $parra_arr_short);
+        $Npdtp += count($parra_arr_short[0]);
+        preg_match_all('/[^<]*\s*int\s*\w+\s*[^>^\[]/', $brokenMethod[1], $parra_arr_int);
+        $Npdtp += count($parra_arr_int[0]);
+        preg_match_all('/[^<]*\s*long\s*\w+\s*[^>^\[]/', $brokenMethod[1], $parra_arr_long);
+        $Npdtp += count($parra_arr_long[0]);
+        preg_match_all('/[^<]*\s*float\s*\w+\s*[^>^\[]/', $brokenMethod[1], $parra_arr_float);
+        $Npdtp += count($parra_arr_float[0]);
+        preg_match_all('/[^<]*\s*double\s*\w+\s*[^>^\[]/', $brokenMethod[1], $parra_arr_double);
+        $Npdtp += count($parra_arr_double[0]);
+        preg_match_all('/[^<]*\s*string\s*\w+\s*[^>^\[]/', $brokenMethod[1], $parra_arr_string);
+        $Npdtp += count($parra_arr_string[0]);
 
-        preg_match_all('/\blist/', $brokenMethod[1], $parra_arr);
-        $Ncdtp += count($parra_arr);
-        preg_match_all('/\bhashmap/', $brokenMethod[1], $parra_arr);
-        $Ncdtp += count($parra_arr);
-        preg_match_all('/\bmap/', $brokenMethod[1], $parra_arr);
-        $Ncdtp += count($parra_arr);
-        preg_match_all('/\bhashtable/', $brokenMethod[1], $parra_arr);
-        $Ncdtp += count($parra_arr);
-        preg_match_all('/\btreemap/', $brokenMethod[1], $parra_arr);
-        $Ncdtp += count($parra_arr);
-        preg_match_all('/\blinkedhashmap/', $brokenMethod[1], $parra_arr);
-        $Ncdtp += count($parra_arr);
-        preg_match_all('/\blinkedhashmap/', $brokenMethod[1], $parra_arr);
-        $Ncdtp += count($parra_arr);
-        preg_match_all('/\b\[\s*\d*\s*\]/', $brokenMethod[1], $parra_arr);
-        $Ncdtp += count($parra_arr);
+        preg_match_all('/\blist/', $brokenMethod[1], $parra_arr_list);
+        $Ncdtp += count($parra_arr_list[0]);
+        preg_match_all('/\bhashmap/', $brokenMethod[1], $parra_arr_hashmap);
+        $Ncdtp += count($parra_arr_hashmap[0]);
+        preg_match_all('/\bmap/', $brokenMethod[1], $parra_arr_map);
+        $Ncdtp += count($parra_arr_map[0]);
+        preg_match_all('/\bhashtable/', $brokenMethod[1], $parra_arr_hashtable);
+        $Ncdtp += count($parra_arr_hashtable[0]);
+        preg_match_all('/\btreemap/', $brokenMethod[1], $parra_arr_treemap);
+        $Ncdtp += count($parra_arr_treemap[0]);
+        preg_match_all('/\blinkedhashmap/', $brokenMethod[1], $parra_arr_linkedhashmap);
+        $Ncdtp += count($parra_arr_linkedhashmap[0]);
+        preg_match_all('/\b\[\s*\d*\s*\]/', $brokenMethod[1], $parra_arr_arr);
+        $Ncdtp += count($parra_arr_arr[0]);
 
-        preg_match_all('/[^\<]\s*boolean\s*\w+\s*[^\>^\[]/', $brokenMethod[0], $return_arr);
-        $NOfPrimitiveReturns += count($return_arr);
-        preg_match_all('/[^\<]\s*char\s*\w+\s*[^\>^\[]/', $brokenMethod[0], $return_arr);
-        $NOfPrimitiveReturns += count($return_arr);
-        preg_match_all('/[^\<]\s*byte\s*\w+\s*[^\>^\[]/', $brokenMethod[0], $return_arr);
-        $NOfPrimitiveReturns += count($return_arr);
-        preg_match_all('/[^\<]\s*short\s*\w+\s*[^\>^\[]/', $brokenMethod[0], $return_arr);
-        $NOfPrimitiveReturns += count($return_arr);
-        preg_match_all('/[^\<]\s*int\s*\w+\s*[^\>^\[]/', $brokenMethod[0], $return_arr);
-        $NOfPrimitiveReturns += count($return_arr);
-        preg_match_all('/[^\<]\s*long\s*\w+\s*[^\>^\[]/', $brokenMethod[0], $return_arr);
-        $NOfPrimitiveReturns += count($return_arr);
-        preg_match_all('/[^\<]\s*float\s*\w+\s*[^\>^\[]/', $brokenMethod[0], $return_arr);
-        $NOfPrimitiveReturns += count($return_arr);
-        preg_match_all('/[^\<]\s*double\s*\w+\s*[^\>^\[]/', $brokenMethod[0], $return_arr);
-        $NOfPrimitiveReturns += count($return_arr);
-        preg_match_all('/[^\<]\s*string\s*\w+\s*[^\>^\[]/', $brokenMethod[0], $return_arr);
-        $NOfPrimitiveReturns += count($return_arr);
+        preg_match_all('/[^<]*\s*boolean\s*\w+\s*[^>^\[]/', $brokenMethod[0], $return_arr_boolean);
+        $NOfPrimitiveReturns += count($return_arr_boolean[0]);
+        preg_match_all('/[^<]*\s*char\s*\w+\s*[^>^\[]/', $brokenMethod[0], $return_arr_char);
+        $NOfPrimitiveReturns += count($return_arr_char[0]);
+        preg_match_all('/[^<]*\s*byte\s*\w+\s*[^>^\[]/', $brokenMethod[0], $return_arr_byte);
+        $NOfPrimitiveReturns += count($return_arr_byte[0]);
+        preg_match_all('/[^<]*\s*short\s*\w+\s*[^>^\[]/', $brokenMethod[0], $return_arr_short);
+        $NOfPrimitiveReturns += count($return_arr_short[0]);
+        preg_match_all('/[^<]*\s*int\s*\w+\s*[^>^\[]/', $brokenMethod[0], $return_arr_int);
+        $NOfPrimitiveReturns += count($return_arr_int[0]);
+        preg_match_all('/[^<]*\s*long\s*\w+\s*[^>^\[]/', $brokenMethod[0], $return_arr_long);
+        $NOfPrimitiveReturns += count($return_arr_long[0]);
+        preg_match_all('/[^<]*\s*float\s*\w+\s*[^>^\[]/', $brokenMethod[0], $return_arr_float);
+        $NOfPrimitiveReturns += count($return_arr_float[0]);
+        preg_match_all('/[^<]*\s*double\s*\w+\s*[^>^\[]/' , $brokenMethod[0], $return_arr_double);
+        $NOfPrimitiveReturns += count($return_arr_double[0]);
+        preg_match_all('/[^<]*\s*string\s*\w+\s*[^>^\[]/', $brokenMethod[0], $return_arr_string);
+        $NOfPrimitiveReturns += count($return_arr_string[0]);
 
-        preg_match_all('/\blist/', $brokenMethod[0], $return_arr);
-        $NOfCompositeReturns += count($return_arr);
-        preg_match_all('/\bhashmap/', $brokenMethod[0], $return_arr);
-        $NOfCompositeReturns += count($return_arr);
-        preg_match_all('/\bmap/', $brokenMethod[0], $return_arr);
-        $NOfCompositeReturns += count($return_arr);
-        preg_match_all('/\bhashtable/', $brokenMethod[0], $return_arr);
-        $NOfCompositeReturns += count($return_arr);
-        preg_match_all('/\btreemap/', $brokenMethod[0], $return_arr);
-        $NOfCompositeReturns += count($return_arr);
-        preg_match_all('/\blinkedhashmap/', $brokenMethod[0], $return_arr);
-        $NOfCompositeReturns += count($return_arr);
-        preg_match_all('/\blinkedhashmap/', $brokenMethod[0], $return_arr);
-        $NOfCompositeReturns += count($return_arr);
-        preg_match_all('/\b\[\s*\d*\s*\]/', $brokenMethod[0], $return_arr);
-        $NOfCompositeReturns += count($return_arr);
+        preg_match_all('/\blist/', $brokenMethod[0], $return_arr_list);
+        $NOfCompositeReturns += count($return_arr_list[0]);
+        preg_match_all('/\bhashmap/', $brokenMethod[0], $return_arr_hashmap);
+        $NOfCompositeReturns += count($return_arr_hashmap[0]);
+        preg_match_all('/\bmap/', $brokenMethod[0], $return_arr_map);
+        $NOfCompositeReturns += count($return_arr_map[0]);
+        preg_match_all('/\bhashtable/', $brokenMethod[0], $return_arr_hashtable);
+        $NOfCompositeReturns += count($return_arr_hashtable[0]);
+        preg_match_all('/\btreemap/', $brokenMethod[0], $return_arr_treemap);
+        $NOfCompositeReturns += count($return_arr_treemap[0]);
+        preg_match_all('/\blinkedhashmap/', $brokenMethod[0], $return_arr_linkedhashmap);
+        $NOfCompositeReturns += count($return_arr_linkedhashmap[0]);
+        preg_match_all('/\b\[\s*\d*\s*\]/', $brokenMethod[0], $return_arr_arr);
+        $NOfCompositeReturns += count($return_arr_arr[0]);
 
-        preg_match_all('/\bvoid/', $brokenMethod[0], $return_arr);
-        $NOfVoidReturns += count($return_arr);
+        preg_match_all('/\bvoid/', $brokenMethod[0], $return_arr_void);
+        $NOfVoidReturns += count($return_arr_void[0]);
     } else {
 
         if (
@@ -164,11 +160,6 @@ function num_variables($i, $sanitiedArray, $scopedArr,  $specialItemKeepArray, $
                     $addNgv = false;
                     $addNlv = true;
                 }
-                // if (!($newItm['start'] == $newItm['end'])) {
-                //     if ($newItm['start'] == $i) {
-                //         $addNlv = false;
-                //     }
-                // }
             }
         }
 
@@ -272,30 +263,3 @@ function num_variables($i, $sanitiedArray, $scopedArr,  $specialItemKeepArray, $
 }
 
 
-function specialItemKeepArray($string)
-{
-    $otherExceptVarRemovingArrSp = [
-        "[", "]", "(", ")", "{", "}", ";", "=", "+", "-", "<", ">", "!", "~", "^", "%", "\/", "\\", ".", "\,", "\"", "\'", ":", "*"
-    ];
-
-    $otherExceptVarRemovingArr = [
-        "boolean", "char", "byte", "short", "int", "long", "float", "double", "string"
-    ];
-
-    $otherExceptVar = preg_replace('/\d/', '', $string);
-
-
-    foreach ($otherExceptVarRemovingArrSp as $item) {
-        $otherExceptVar = str_replace($item, ' ', $otherExceptVar);
-    };
-
-    $regIdea = '';
-
-    foreach ($otherExceptVarRemovingArr as $otherExceptVarRemovingArrWord) {
-        $regIdea .= "(?!" . $otherExceptVarRemovingArrWord . ")";
-    };
-
-    $otherExceptVar = preg_replace("/\b$regIdea.*?\b/", ' ', $otherExceptVar);
-
-    return explode("\n", $otherExceptVar);
-}
