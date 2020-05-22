@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Maths2 {
+public class Maths2 extends JumpingBox implements Dammed{
     double num = 0.0;
     int[] myNum;
     int back[];

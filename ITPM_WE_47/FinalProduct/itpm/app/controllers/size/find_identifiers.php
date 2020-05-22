@@ -1,3 +1,4 @@
+
 <?php
 function num_identifiers($i,  $sanitiedArray, $scopedArr, $specialItemRemovedArr)
 {
@@ -40,11 +41,18 @@ function num_identifiers($i,  $sanitiedArray, $scopedArr, $specialItemRemovedArr
                 $addNid = true;
             }
         }
+
+
+        if ($newItm['scope'] == "") {
+            if (($newItm['start'] <= $i) && ($newItm['end'] >= $i)) {
+                $addNid = true;
+            }
+        }
     }
 
 
     if (
-        count(preg_grep('/\b(main|class)/', explode("\n", $sanitiedArray[$i]))) > 0
+        count(preg_grep('/\b(main|class)\b/', explode("\n", $sanitiedArray[$i]))) > 0
     ) {
         $addNid = true;
     }
@@ -54,5 +62,3 @@ function num_identifiers($i,  $sanitiedArray, $scopedArr, $specialItemRemovedArr
     }
     return $Nid;
 }
-
-

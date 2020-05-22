@@ -54,8 +54,7 @@ public class JumpingBox extends java.applet.Applet implements MouseListener, Mou
             if (onaroll > 0) {   //not first hit
                 switch (onaroll%4) {   //play a sound
                 case 0:
-                    play(getCodeBase(), 
-                         "sounds/tiptoe.thru.the.tulips.au");
+                    play(getCodeBase(), "sounds/tiptoe.thru.the.tulips.au");
                     break;
                 case 1:
                     play(getCodeBase(), "sounds/danger.au");

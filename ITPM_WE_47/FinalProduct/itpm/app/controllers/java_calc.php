@@ -12,6 +12,7 @@ include 'size/find_numerics.php';
 include 'size/find_stringLiterals.php';
 
 include 'variables/find_variables.php';
+include 'inheritance/inherit.php';
 
 function java_calc($file)
 {
@@ -32,16 +33,20 @@ function java_calc($file)
     $NOfPrimitiveReturns = 0;
     $NOfCompositeReturns = 0;
 
+    $finalDataArr = array("linebyline_data" => [], "class_data" => []);
     $dataArr = array();
     $displayArray = displayArray($convertedTostring);
-    $specialItemRemovedArr = specialItemRemovedArr(strtolower($convertedTostring));
+    $specialItemRemovedArr = specialItemRemovedArr($convertedTostring,1,1,1);
+    $specialItemRemovedArrWithDigits = specialItemRemovedArr($convertedTostring,0,0,1);
+    $specialItemRemovedArrMoreSp = specialItemRemovedArr($convertedTostring,1,1,1);
     $specialItemKeepArray = specialItemKeepArray(strtolower($convertedTostring));
     $sanitiedArray = explode("\n", strtolower($convertedTostring));
     $scopedArr = scope_arr($sanitiedArray);
+    $class_data = inheritance_calc($convertedTostring,$specialItemRemovedArrWithDigits);
 
     for ($i = 0; $i < count($sanitiedArray); $i++) {
         $Nkw = num_keywords($sanitiedArray[$i]);
-        $Nid = num_identifiers($i, $sanitiedArray, $scopedArr, $specialItemRemovedArr);
+        $Nid = num_identifiers($i, $sanitiedArray, $scopedArr, $specialItemRemovedArrMoreSp);
         $Nop = num_operators($sanitiedArray[$i]);
         $Nnv = num_numerics($sanitiedArray[$i]);
         $Nsl = num_stringLiterals($sanitiedArray[$i]);
@@ -130,6 +135,7 @@ function java_calc($file)
         $NOfPrimitiveReturns = 0;
         $NOfCompositeReturns = 0;
     }
-
-    return $dataArr;
+    $finalDataArr["class_data"] = $class_data;
+    $finalDataArr["linebyline_data"] = $dataArr;
+    return $finalDataArr;
 }

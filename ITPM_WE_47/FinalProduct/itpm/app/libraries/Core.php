@@ -11,9 +11,11 @@ class Core
         $url = $this->getUrl();
 
         // Check the url[0] element
-        if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
-            $this->currentController = ucwords($url[0]);
-            unset($url[0]);
+        if (isset($url[0])) {
+            if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
+                $this->currentController = ucwords($url[0]);
+                unset($url[0]);
+            }
         }
 
         // Setup the page
